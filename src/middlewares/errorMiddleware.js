@@ -1,6 +1,9 @@
 const cases = {
-  validationError: 400,
-  notFoundError: 404,
+  ValidationError: 400,
+  InvalidFieldsError: 400,
+  TokenError: 401,
+  NotFoundError: 404,
+  EmailInUseError: 409,
 };
 /**
  * @param {Error} err
