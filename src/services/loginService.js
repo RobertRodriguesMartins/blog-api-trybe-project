@@ -1,4 +1,5 @@
 const models = require('../database/models');
+const CustomError = require('../utils/customError');
 
 const loginService = {
   /**
@@ -10,7 +11,13 @@ const loginService = {
         email: requestUser.email,
         password: requestUser.password,
       },
+      attributes: {
+        exclude: ['password'],
+      },
+      raw: true,
     });
+
+    if (!user) throw new CustomError('InvalidFieldsError', 'Invalid fields');
 
     return user;
   },
