@@ -11,11 +11,6 @@ const blogPostsGenerator = (sequelize) => {
 
   blogPosts.associate = (models) => {
     blogPosts.belongsTo(models.User, { foreignKey: 'userId', as: 'users' });
-
-    blogPosts.hasMany(models.PostCategory, {
-      foreignKey: 'postId',
-      as: 'categories',
-    });
   };
 
   return blogPosts;
