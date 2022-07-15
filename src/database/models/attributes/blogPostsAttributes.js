@@ -31,10 +31,12 @@ const blogPostsAttributes = {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: new Date(),
+    onUpdate: 'NO ACTION',
   },
   updated: {
     type: DataTypes.DATE,
-    allowNull: true,
+    allowNull: false,
+    defaultValue: new Date(),
     onUpdate: new Date(),
   },
 };
