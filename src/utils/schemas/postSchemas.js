@@ -14,6 +14,12 @@ const postSchema = {
     }),
     categoryIds: Joi.array().has(Joi.number().positive()).required(),
   }).required(),
+  findPost: Joi.object({
+    id: Joi.string().min(1).required().messages({
+      'any.required': required,
+      'string.empty': required,
+    }),
+  }).required(),
 };
 
 module.exports = postSchema;
