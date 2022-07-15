@@ -24,11 +24,18 @@ const postController = {
     postData.id = id;
     return res.status(201).json(postData);
   },
-
   findAll: async (req, res) => {
     const posts = await postService.findAll();
 
     return res.status(200).json(posts);
+  },
+  findOne: async (req, res) => {
+    const { id } = await runSchema('findPost', {
+      ...req.params,
+    });
+    const post = await postService.findOne(id);
+
+    return res.status(200).json(post);
   },
 };
 

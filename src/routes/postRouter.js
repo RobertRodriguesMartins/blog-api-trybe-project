@@ -2,6 +2,9 @@ const Router = require('express').Router();
 const { postController } = require('../controllers');
 const { tokenMiddleware } = require('../middlewares');
 
-Router.use(tokenMiddleware).post('/', postController.create);
+Router.use(tokenMiddleware)
+  .post('/', postController.create)
+  .get('/:id', postController.findOne)
+  .get('/', postController.findAll);
 
 module.exports = Router;

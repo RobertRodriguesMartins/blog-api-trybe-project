@@ -1,4 +1,5 @@
 const models = require('../database/models');
+const CustomError = require('../utils/customError');
 
 const postService = {
   /**
@@ -8,10 +9,32 @@ const postService = {
     const { dataValues: created } = await models.BlogPost.create(post);
     return created;
   },
+  findOne: async (id) => {
+    const post = await models.BlogPost.findOne({
+      where: {
+        id,
+      },
+      include: [
+        { association: 'user', attributes: { exclude: ['password'] } },
+        {
+          association: 'categories',
+          through: { attributes: [] },
+        },
+      ],
+    });
+    if (!post) throw new CustomError('NotFoundError', 'Post does not exist');
+    return post;
+  },
   findAll: async () => {
     const post = await models.BlogPost.findAll({
-      raw: true,
       attributes: { exclude: ['password'] },
+      include: [
+        { association: 'user', attributes: { exclude: ['password'] } },
+        {
+          association: 'categories',
+          through: { attributes: [] },
+        },
+      ],
     });
 
     return post;
