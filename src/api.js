@@ -2,7 +2,12 @@ const express = require('express');
 require('express-async-errors');
 const cors = require('cors');
 const { errorMiddleware } = require('./middlewares');
-const { loginRouter, userRouter, categoryRouter } = require('./routes');
+const {
+  loginRouter,
+  userRouter,
+  categoryRouter,
+  postRouter,
+} = require('./routes');
 // ...
 
 const app = express();
@@ -12,6 +17,7 @@ app.use(cors());
 app.use('/login', loginRouter);
 app.use('/user', userRouter);
 app.use('/categories', categoryRouter);
+app.use('/post', postRouter);
 // working in progres...
 
 app.use(errorMiddleware);
