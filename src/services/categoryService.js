@@ -31,7 +31,7 @@ const userService = {
   },
   create: async (categoryObject) => {
     const { dataValues: category } = await models.Category.create(
-      categoryObject
+      categoryObject,
     );
     return category;
   },
