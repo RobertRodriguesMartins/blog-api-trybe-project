@@ -15,6 +15,7 @@ const tokenValidation = async (req, _res, next) => {
     throw new CustomError('TokenError', 'Expired or invalid token');
   });
   req.token = token;
+  req.userId = await jwtHandler.decode(token);
 
   next();
 };
