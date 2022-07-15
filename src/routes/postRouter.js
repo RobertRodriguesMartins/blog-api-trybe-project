@@ -4,6 +4,7 @@ const { tokenMiddleware } = require('../middlewares');
 
 Router.use(tokenMiddleware)
   .post('/', postController.create)
+  .put('/:id', postController.edit)
   .get('/:id', postController.findOne)
   .get('/', postController.findAll);
 
