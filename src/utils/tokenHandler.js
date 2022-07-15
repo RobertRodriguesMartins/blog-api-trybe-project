@@ -16,6 +16,13 @@ const jwtHandler = {
       resolve(payload);
       reject();
     }),
+  decode: async (token) =>
+    new Promise((resolve, reject) => {
+      const decodeToken = Jwt.decode(token);
+
+      resolve(decodeToken);
+      reject();
+    }),
 };
 
 module.exports = jwtHandler;

@@ -9,13 +9,6 @@ const categoriesGenerator = (sequelize) => {
     timestamps: false,
   });
 
-  categories.associate = (models) => {
-    categories.hasMany(models.PostCategory, {
-      foreignKey: 'categoryId',
-      as: 'posts',
-    });
-  };
-
   return categories;
 };
 
