@@ -12,14 +12,18 @@ const categoryController = {
     const category = await runSchema('createCategory', { ...req.body });
     const exists = await categoryService.findByName(category);
     if (exists) {
- throw new CustomError(
+      throw new CustomError(
         'CategoryExistsError',
         'category already registered',
-      ); 
-}
+      );
+    }
 
     const created = await categoryService.create(category);
     return res.status(201).json(created);
+  },
+  findAll: async (req, res) => {
+    const categories = await categoryService.findAll();
+    return res.status(200).json(categories);
   },
 };
 
