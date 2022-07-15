@@ -10,8 +10,14 @@ const postService = {
   },
   findAll: async () => {
     const post = await models.BlogPost.findAll({
-      raw: true,
       attributes: { exclude: ['password'] },
+      include: [
+        { association: 'user', attributes: { exclude: ['password'] } },
+        {
+          association: 'categories',
+          through: { attributes: [] },
+        },
+      ],
     });
 
     return post;
