@@ -47,6 +47,13 @@ const postService = {
 
     return post;
   },
+  remove: async (id) => {
+    await models.BlogPost.destroy({
+      where: {
+        id,
+      },
+    });
+  },
 };
 
 module.exports = postService;
