@@ -20,6 +20,13 @@ const postCategoryService = {
 
     return post;
   },
+  remove: async (id) => {
+    await models.PostCategory.destroy({
+      where: {
+        postId: id,
+      },
+    });
+  },
 };
 
 module.exports = postCategoryService;
