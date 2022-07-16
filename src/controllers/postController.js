@@ -54,6 +54,19 @@ const postController = {
 
     return res.status(200).json(post);
   },
+  findOneByQuery: async (req, res) => {
+    const { q } = await runSchema('findPostByQuery', {
+      ...req.query,
+    });
+    let post = '';
+    if (q === '') {
+      post = await postService.findAll();
+    } else {
+      post = await postService.findOneByQuery(q);
+    }
+    if (!post) post = [];
+    return res.status(200).json(post);
+  },
   remove: async (req, res) => {
     const { id } = await runSchema('findPost', {
       ...req.params,
