@@ -37,6 +37,13 @@ const userService = {
     const { dataValues: user } = await models.User.create(requestUser);
     return user;
   },
+  remove: async (requestUser) => {
+    await models.User.destroy({
+      where: {
+        id: requestUser,
+      },
+    });
+  },
 };
 
 module.exports = userService;
