@@ -30,6 +30,11 @@ const postSchema = {
       'string.empty': required,
     }),
   }).required(),
+  findPostByQuery: Joi.object({
+    q: Joi.string().allow('').required().messages({
+      'any.required': required,
+    }),
+  }).required(),
 };
 
 module.exports = postSchema;
