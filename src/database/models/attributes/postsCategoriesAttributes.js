@@ -13,6 +13,7 @@ const postsCategoriesAttributes = {
       key: 'id',
       model: 'Categories',
     },
+    onDelete: 'NO ACTION',
   },
   postId: {
     type: DataTypes.INTEGER,
@@ -23,6 +24,7 @@ const postsCategoriesAttributes = {
       key: 'id',
       model: 'BlogPosts',
     },
+    onDelete: 'CASCADE',
   },
 };
 
