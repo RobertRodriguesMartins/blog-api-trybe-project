@@ -1,5 +1,16 @@
+const { Op } = require('sequelize');
 const models = require('../database/models');
 const CustomError = require('../utils/customError');
+
+const myAssociations = {
+  include: [
+    { association: 'user', attributes: { exclude: ['password'] } },
+    {
+      association: 'categories',
+      through: { attributes: [] },
+    },
+  ],
+};
 
 const postService = {
   /**
@@ -22,27 +33,35 @@ const postService = {
       where: {
         id,
       },
-      include: [
-        { association: 'user', attributes: { exclude: ['password'] } },
-        {
-          association: 'categories',
-          through: { attributes: [] },
-        },
-      ],
+      ...myAssociations,
     });
     if (!post) throw new CustomError('NotFoundError', 'Post does not exist');
+    return post;
+  },
+  findOneByQuery: async (name) => {
+    const post = await models.BlogPost.findAll({
+      where: {
+        [Op.or]: [
+          {
+            content: {
+              [Op.like]: `%${name}%`,
+            },
+          },
+          {
+            title: {
+              [Op.like]: `%${name}%`,
+            },
+          },
+        ],
+      },
+      ...myAssociations,
+    });
     return post;
   },
   findAll: async () => {
     const post = await models.BlogPost.findAll({
       attributes: { exclude: ['password'] },
-      include: [
-        { association: 'user', attributes: { exclude: ['password'] } },
-        {
-          association: 'categories',
-          through: { attributes: [] },
-        },
-      ],
+      ...myAssociations,
     });
 
     return post;
