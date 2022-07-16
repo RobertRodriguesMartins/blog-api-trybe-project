@@ -4,9 +4,10 @@ const { tokenMiddleware } = require('../middlewares');
 
 Router.use(tokenMiddleware)
   .post('/', postController.create)
-  .put('/:id', postController.edit)
+  .get('/search', postController.findOneByQuery)
   .get('/:id', postController.findOne)
-  .delete('/:id', postController.remove)
-  .get('/', postController.findAll);
+  .get('/', postController.findAll)
+  .put('/:id', postController.edit)
+  .delete('/:id', postController.remove);
 
 module.exports = Router;
