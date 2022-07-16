@@ -20,13 +20,14 @@ const blogPostsAttributes = {
   },
   userId: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     field: 'userId',
     references: {
       key: 'id',
       model: 'Users',
     },
-    onDelete: 'NO ACTION',
+    onDelete: 'SET NULL',
+    onUpdate: 'NO ACTION',
   },
   published: {
     type: DataTypes.DATE,
