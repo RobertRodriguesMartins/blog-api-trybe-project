@@ -26,6 +26,7 @@ const blogPostsAttributes = {
       key: 'id',
       model: 'Users',
     },
+    onDelete: 'NO ACTION',
   },
   published: {
     type: DataTypes.DATE,
