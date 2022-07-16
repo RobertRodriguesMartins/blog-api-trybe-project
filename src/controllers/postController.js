@@ -54,6 +54,17 @@ const postController = {
 
     return res.status(200).json(post);
   },
+  remove: async (req, res) => {
+    const { id } = await runSchema('findPost', {
+      ...req.params,
+    });
+    const post = await postService.findOne(id);
+    if (post.userId !== req.userId.id) {
+      throw new CustomError('NotAllowedError', 'Unauthorized user');
+    }
+    await postService.remove(id);
+    return res.status(204).end();
+  },
 };
 
 module.exports = postController;
