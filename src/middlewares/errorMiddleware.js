@@ -4,6 +4,7 @@ const cases = {
   TokenError: 401,
   NotFoundError: 404,
   EmailInUseError: 409,
+  NotAllowedError: 401,
 };
 /**
  * @param {Error} err

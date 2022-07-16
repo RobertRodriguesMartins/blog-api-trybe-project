@@ -9,6 +9,14 @@ const postService = {
     const { dataValues: created } = await models.BlogPost.create(post);
     return created;
   },
+  edit: async (id, post) => {
+    await models.BlogPost.update(post, {
+      where: {
+        id,
+      },
+      fields: ['title', 'content'],
+    });
+  },
   findOne: async (id) => {
     const post = await models.BlogPost.findOne({
       where: {
@@ -38,6 +46,13 @@ const postService = {
     });
 
     return post;
+  },
+  remove: async (id) => {
+    await models.BlogPost.destroy({
+      where: {
+        id,
+      },
+    });
   },
 };
 

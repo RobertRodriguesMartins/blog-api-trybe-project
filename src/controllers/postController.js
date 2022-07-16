@@ -3,6 +3,7 @@ const {
   categoryService,
   postCategoryService,
 } = require('../services');
+const CustomError = require('../utils/customError');
 const runSchema = require('../utils/runSchema');
 /**
  * @typedef {import('express').RequestHandler} handler
@@ -24,6 +25,22 @@ const postController = {
     postData.id = id;
     return res.status(201).json(postData);
   },
+  edit: async (req, res) => {
+    const { id } = await runSchema('findPost', {
+      ...req.params,
+    });
+    const postBody = await runSchema('editPost', {
+      ...req.body,
+    });
+    const post = await postService.findOne(id);
+    if (post.userId !== req.userId.id) {
+      throw new CustomError('NotAllowedError', 'Unauthorized user');
+    }
+
+    await postService.edit(id, postBody);
+    const newPost = await postService.findOne(id);
+    return res.status(200).json(newPost);
+  },
   findAll: async (req, res) => {
     const posts = await postService.findAll();
 
@@ -36,6 +53,17 @@ const postController = {
     const post = await postService.findOne(id);
 
     return res.status(200).json(post);
+  },
+  remove: async (req, res) => {
+    const { id } = await runSchema('findPost', {
+      ...req.params,
+    });
+    const post = await postService.findOne(id);
+    if (post.userId !== req.userId.id) {
+      throw new CustomError('NotAllowedError', 'Unauthorized user');
+    }
+    await postService.remove(id);
+    return res.status(204).end();
   },
 };
 
