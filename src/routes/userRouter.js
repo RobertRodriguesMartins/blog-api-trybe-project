@@ -5,6 +5,7 @@ const { tokenMiddleware } = require('../middlewares');
 Router.post('/', userController.create)
   .use(tokenMiddleware)
   .get('/:id', userController.findById)
-  .get('/', userController.findAll);
+  .get('/', userController.findAll)
+  .delete('/me', userController.remove);
 
 module.exports = Router;
