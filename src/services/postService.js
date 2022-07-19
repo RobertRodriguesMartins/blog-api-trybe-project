@@ -73,7 +73,7 @@ const postService = {
   },
   findByOffset: async (offset) => {
     const posts = await models.BlogPost.findAll({
-      limit: 8,
+      limit: 6,
       offset,
     });
     return posts;
