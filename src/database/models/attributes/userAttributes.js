@@ -25,8 +25,9 @@ const userAttributes = {
     allowNull: false,
   },
   image: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.BLOB('medium'),
+    allowNull: true,
+    defaultValue: null,
   },
 };
 
