@@ -66,6 +66,18 @@ const postService = {
 
     return post;
   },
+  findMaxOffset: async () => {
+    const rawOffset = await models.BlogPost.count();
+    const offset = Math.floor(rawOffset / 6);
+    return offset;
+  },
+  findByOffset: async (offset) => {
+    const posts = await models.BlogPost.findAll({
+      limit: 8,
+      offset,
+    });
+    return posts;
+  },
   remove: async (id) => {
     await models.BlogPost.destroy({
       where: {
