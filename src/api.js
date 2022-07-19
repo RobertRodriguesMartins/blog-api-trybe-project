@@ -12,14 +12,17 @@ const {
 
 const app = express();
 
+app.use(
+  cors({
+    allowedHeaders: ['Content-Type'],
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  })
+);
 app.use(express.json());
-app.use(cors());
 app.use('/login', loginRouter);
 app.use('/user', userRouter);
 app.use('/categories', categoryRouter);
 app.use('/post', postRouter);
-// working in progres...
-
 app.use(errorMiddleware);
 // ...
 
