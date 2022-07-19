@@ -12,10 +12,11 @@ const userController = {
   create: async (req, res) => {
     const user = await runSchema('create', { ...req.body });
     const exists = await userService.findOneByEmail(user);
-    if (exists) throw new CustomError('EmailInUseError', 'User already registered');
+    if (exists)
+      throw new CustomError('EmailInUseError', 'User already registered');
 
-    const { password, ...withoutPassword } = await userService.create(user);
-    const token = await jwtHandler.create(withoutPassword);
+    const { password, image, ...correct } = await userService.create(user);
+    const token = await jwtHandler.create(correct);
     return res.status(201).json({ token });
   },
 
