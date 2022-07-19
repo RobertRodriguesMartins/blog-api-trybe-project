@@ -12,7 +12,7 @@ const loginService = {
         password: requestUser.password,
       },
       attributes: {
-        exclude: ['password'],
+        exclude: ['password', 'image'],
       },
       raw: true,
     });
