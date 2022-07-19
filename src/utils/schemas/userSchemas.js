@@ -9,8 +9,7 @@ const userSchema = {
       'string.empty': required,
       'string.min': '"displayName" length must be at least 8 characters long',
     }),
-    email: Joi.string().min(1).email().required()
-.messages({
+    email: Joi.string().min(1).email().required().messages({
       'any.required': required,
       'string.empty': required,
     }),
@@ -19,10 +18,7 @@ const userSchema = {
       'string.empty': required,
       'string.min': '"password" length must be at least 6 characters long',
     }),
-    image: Joi.string().min(1).required().messages({
-      'any.required': required,
-      'string.empty': required,
-    }),
+    image: Joi.string().allow(null),
   }).required(),
   byId: Joi.object({
     id: Joi.number().positive().required().messages({
