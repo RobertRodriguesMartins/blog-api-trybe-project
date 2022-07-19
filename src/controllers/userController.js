@@ -32,6 +32,13 @@ const userController = {
     if (!user) throw new CustomError('NotFoundError', 'User does not exist');
     return res.status(200).json(user);
   },
+  remove: async (req, res) => {
+    const user = await userService.findById(req.userId.id);
+    if (!user) throw new CustomError('NotAllowedError', 'User does not exist');
+
+    await userService.remove(req.userId.id);
+    return res.status(204).end();
+  },
 };
 
 module.exports = userController;
