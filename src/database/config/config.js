@@ -1,5 +1,7 @@
 require('dotenv').config();
-
+/**
+ * @type {import('sequelize').Options}
+ */
 const options = {
   host:
     process.env.MYSQL_PROD_HOSTNAME || process.env.MYSQL_HOST || 'localhost',
@@ -14,11 +16,4 @@ const options = {
   logging: process.env.DEBUG !== 'false',
 };
 
-module.exports = {
-  development: {
-    ...options,
-  },
-  test: {
-    ...options,
-  },
-};
+module.exports = options;

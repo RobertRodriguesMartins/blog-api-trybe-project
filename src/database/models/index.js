@@ -4,17 +4,23 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const { development: d } = require(__dirname + '/../config/config.js')[env];
+const {
+  database,
+  username,
+  host,
+  password,
+  port,
+  dialect,
+} = require(__dirname + '/../config/config.js');
 /**
  * @type {Record<string, Sequelize.ModelCtor<Sequelize.Model>>}
  */
 const db = {};
 let sequelize;
-sequelize = new Sequelize(d.database, d.username, d.password, {
-  host: d.host,
-  port: d.port,
-  dialect: 'mysql',
+sequelize = new Sequelize(database, username, password, {
+  host,
+  port,
+  dialect,
 });
 
 fs.readdirSync(__dirname)
