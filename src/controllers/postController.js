@@ -9,7 +9,16 @@ const runSchema = require('../utils/runSchema');
  * @typedef {import('express').RequestHandler} handler
  */
 /**
- * @type {{create: handler}}
+ * @type {{
+ * create: handler,
+ * edit: handler,
+ * findAll: handler,
+ * findOne: handler,
+ * findByOffset: handler,
+ * findMaxOffset: handler,
+ * findOneByQuery: handler,
+ * remove: handler,
+ * }}
  */
 const postController = {
   create: async (req, res) => {
@@ -53,6 +62,15 @@ const postController = {
     const post = await postService.findOne(id);
 
     return res.status(200).json(post);
+  },
+  findByOffset: async (req, res) => {
+    const { q } = await runSchema('findPostByOffset', { ...req.query });
+    const posts = await postService.findByOffset(q);
+    return res.status(200).json(posts);
+  },
+  findMaxOffset: async (req, res) => {
+    const offset = await postService.findMaxOffset();
+    return res.status(200).json(offset);
   },
   findOneByQuery: async (req, res) => {
     const { q } = await runSchema('findPostByQuery', {
