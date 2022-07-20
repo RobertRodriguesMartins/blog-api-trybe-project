@@ -9,7 +9,8 @@ const userSchema = {
       'string.empty': required,
       'string.min': '"displayName" length must be at least 8 characters long',
     }),
-    email: Joi.string().min(1).email().required().messages({
+    email: Joi.string().min(1).email().required()
+.messages({
       'any.required': required,
       'string.empty': required,
     }),

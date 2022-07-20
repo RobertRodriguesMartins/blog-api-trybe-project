@@ -4,7 +4,7 @@ const CustomError = require('../utils/customError');
 
 const myAssociations = {
   include: [
-    { association: 'user', attributes: { exclude: ['password'] } },
+    { association: 'user', attributes: { exclude: ['password', 'image'] } },
     {
       association: 'categories',
       through: { attributes: [] },
@@ -60,7 +60,7 @@ const postService = {
   },
   findAll: async () => {
     const post = await models.BlogPost.findAll({
-      attributes: { exclude: ['password'] },
+      attributes: { exclude: ['password', 'image'] },
       ...myAssociations,
     });
 

@@ -12,8 +12,8 @@ const postSchema = {
       'any.required': required,
       'string.empty': required,
     }),
-    categoryIds: Joi.array().has(Joi.number().positive()).required(),
-  }).required(),
+    categories: Joi.array().items(Joi.string().min(2).max(20)),
+  }),
   findPost: Joi.object({
     id: Joi.number().positive().required().messages({
       'any.required': required,

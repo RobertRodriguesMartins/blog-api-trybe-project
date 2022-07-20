@@ -22,14 +22,16 @@ const runSchema = require('../utils/runSchema');
  */
 const postController = {
   create: async (req, res) => {
-    const { categoryIds, ...post } = await runSchema('createPost', {
+    const { categories, ...post } = await runSchema('createPost', {
       ...req.body,
     });
     post.userId = req.userId.id;
-    await categoryService.findMany(categoryIds);
     const { id, ...postData } = await postService.create(post);
-    await postCategoryService.createPostCategory(id, categoryIds);
-
+    if (categories.length > 0) {
+      await categoryService.findOrCreateMany(categories);
+      const categoriesIds = await categoryService.findManyByName(categories);
+      await postCategoryService.createPostCategory(id, categoriesIds);
+    }
     postData.userId = post.userId;
     postData.id = id;
     return res.status(201).json(postData);
