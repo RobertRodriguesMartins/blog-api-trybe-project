@@ -20,6 +20,10 @@ const postService = {
     const { dataValues: created } = await models.BlogPost.create(post);
     return created;
   },
+  countAllPosts: async () => {
+    const countedPosts = await models.BlogPost.count();
+    return countedPosts;
+  },
   edit: async (id, post) => {
     await models.BlogPost.update(post, {
       where: {
