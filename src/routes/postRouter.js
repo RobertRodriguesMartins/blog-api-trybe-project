@@ -4,6 +4,7 @@ const { tokenMiddleware } = require('../middlewares');
 
 Router.get('/some', postController.findByOffset)
   .get('/offset', postController.findMaxOffset)
+  .get('/count', postController.countAllPosts)
   .use(tokenMiddleware)
   .post('/', postController.create)
   .get('/search', postController.findOneByQuery)

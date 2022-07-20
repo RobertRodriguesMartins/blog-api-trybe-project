@@ -11,6 +11,7 @@ const runSchema = require('../utils/runSchema');
 /**
  * @type {{
  * create: handler,
+ * countAllPosts: handler,
  * edit: handler,
  * findAll: handler,
  * findOne: handler,
@@ -35,6 +36,10 @@ const postController = {
     postData.userId = post.userId;
     postData.id = id;
     return res.status(201).json(postData);
+  },
+  countAllPosts: async (req, res) => {
+    const postCount = await postService.countAllPosts();
+    return res.status(201).json(postCount);
   },
   edit: async (req, res) => {
     const { id } = await runSchema('findPost', {
