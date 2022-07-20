@@ -9,6 +9,9 @@ const userService = {
       where: {
         email: requestUser.email,
       },
+      attributes: {
+        exclude: ['password', 'image'],
+      },
     });
 
     return user;
@@ -16,7 +19,7 @@ const userService = {
   findAll: async () => {
     const user = await models.User.findAll({
       raw: true,
-      attributes: { exclude: ['password'] },
+      attributes: { exclude: ['password', 'image'] },
     });
 
     return user;
@@ -27,7 +30,7 @@ const userService = {
         id,
       },
       attributes: {
-        exclude: ['password'],
+        exclude: ['password', 'image'],
       },
     });
 
