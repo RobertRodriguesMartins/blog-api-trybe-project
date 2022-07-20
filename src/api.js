@@ -14,9 +14,9 @@ const app = express();
 
 app.use(
   cors({
-    allowedHeaders: ['Content-Type'],
+    allowedHeaders: ['Content-Type', 'authorization'],
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
-  }),
+  })
 );
 app.use(express.json());
 app.use('/login', loginRouter);
