@@ -81,6 +81,7 @@ const postService = {
       ],
       limit: 10,
       offset,
+      order: [['id', 'DESC']],
     });
     return posts;
   },
