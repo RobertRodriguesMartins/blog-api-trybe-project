@@ -73,6 +73,12 @@ const postService = {
   },
   findByOffset: async (offset) => {
     const posts = await models.BlogPost.findAll({
+      include: [
+        {
+          association: 'categories',
+          through: { attributes: [] },
+        },
+      ],
       limit: 10,
       offset,
     });
