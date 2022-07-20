@@ -1,5 +1,4 @@
 const models = require('../database/models');
-const CustomError = require('../utils/customError');
 
 const userService = {
   /**
@@ -14,6 +13,25 @@ const userService = {
     });
 
     return category;
+  },
+  findManyByName: async (categories) => {
+    const findedCategories = [];
+    categories.forEach((categoryName) => {
+      findedCategories.push(
+        models.Category.findOne({
+          where: {
+            name: categoryName,
+          },
+          raw: true,
+        }),
+      );
+    });
+    const categoriesIds = [];
+    const result = await Promise.all(findedCategories);
+    result.forEach(({ id }) => {
+      categoriesIds.push(id);
+    });
+    return categoriesIds;
   },
   findAll: async () => {
     const categories = await models.Category.findAll({
@@ -38,26 +56,20 @@ const userService = {
     return category;
   },
   /**
-   * @param {number[]} categories
+   * @param {string[]} categories
    */
-  findMany: async (categories) => {
+  findOrCreateMany: async (categories) => {
     const promises = [];
-    categories.forEach((categoryId) => {
+    categories.forEach((category) => {
       promises.push(
-        models.Category.findOne({
+        models.Category.findOrCreate({
           where: {
-            id: categoryId,
+            name: category,
           },
-          rejectOnEmpty: true,
         }),
       );
     });
-
-    try {
-      await Promise.all(promises);
-    } catch (e) {
-      throw new CustomError('ValidationError', '"categoryIds" not found');
-    }
+    await Promise.all(promises);
   },
 };
 
