@@ -21,6 +21,7 @@ sequelize = new Sequelize(database, username, password, {
   host,
   port,
   dialect,
+  logging: false,
 });
 
 fs.readdirSync(__dirname)
